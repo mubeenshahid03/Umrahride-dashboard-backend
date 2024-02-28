@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken");
 const Admin = require("../Model/Admin");
 const User = require("../Model/User");
 const router = express.Router();
-const MY_SECRET_KEY = "IAMMUBEENIAMA$OODBOY";
+const MY_SECRET_KEY =process.env.MYSECRETKEY;
 
 let Success = false;
 

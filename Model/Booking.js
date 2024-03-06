@@ -10,6 +10,10 @@ const bookingSchema= new mongoose.Schema({
         type: String,
         required: true,
     },
+    timepicker: {
+        type: String,
+        required: true,
+    },
     flightnumber: {
         type: String,
         //required: true,

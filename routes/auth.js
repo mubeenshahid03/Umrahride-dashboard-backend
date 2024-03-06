@@ -4,7 +4,7 @@ var jwt = require("jsonwebtoken");
 const Admin = require("../Model/Admin");
 const User = require("../Model/User");
 const router = express.Router();
-const MY_SECRET_KEY =process.env.MYSECRETKEY;
+const MY_SECRET_KEY = process.env.MYSECRETKEY;
 
 let Success = false;
 
@@ -30,7 +30,7 @@ router.post("/createuser", async (request, response) => {
 
       // user.create also save user in database
       user = await Admin.create({
-        name:request.body.name,
+        name: request.body.name,
         email: request.body.email,
         password: secpass,
       });
@@ -98,29 +98,27 @@ router.post("/createuser", async (request, response) => {
 //   }
 // });
 //   3 route of api/auth/getallusers
-router.get('/getallusers', async (request,response)=>{
+router.get("/getallusers", async (request, response) => {
   try {
-    
     const fnluser = await Admin.find().select("-password").maxTimeMS(30000);
-    response.send(fnluser)
+    response.send(fnluser);
   } catch (error) {
-    console.log("error in api/auth/getuser"+error)
+    console.log("error in api/auth/getuser" + error);
   }
-})
-
+});
 
 // path 4   http://localhost:7000/api/auth/edituser/_id
 router.put("/edituser/:id", async (request, response) => {
   try {
-    let { name, email ,password } = request.body;
+    let { name, email, password } = request.body;
     if (!request.params.id) {
       return response.status(400).json({ error: "id in params not found" });
     }
     let newAdmin = {};
-    if (name || email ||password) {
+    if (name || email || password) {
       newAdmin.name = name;
-      newAdmin.email=email
-      newAdmin.password=password
+      newAdmin.email = email;
+      newAdmin.password = password;
     }
 
     const updatedAdmin = await Admin.findByIdAndUpdate(
@@ -159,21 +157,16 @@ router.post("/deleteuser/:id", async (request, response) => {
   }
 });
 
-
-
-
 //bellow are the routes for users
 
-
 //   1 route of api/auth/getusers
-router.get('/getusers', async (request,response)=>{
+router.get("/getusers", async (request, response) => {
   try {
-    
-    const fnluser = await User.find().select("-password")
-    response.send(fnluser)
+    const fnluser = await User.find().select("-password");
+    response.send(fnluser);
   } catch (error) {
-    console.log("error in api/auth/getuser"+error)
+    console.log("error in api/auth/getuser" + error);
   }
-})
+});
 
 module.exports = router;
